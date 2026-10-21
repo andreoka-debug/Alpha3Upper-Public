@@ -9,7 +9,8 @@ or game logos are bundled, and the project does not download these materials.
 
 ## First-time setup
 
-1. Download and extract the Windows package from **Releases**.
+1. Download and run the Windows installer from **Releases**, or extract the
+   portable Windows ZIP if you prefer to use the program without installing it.
 2. Open `Alpha3Upper.exe` and select your original collection's installation folder.
 3. Launch the collection normally through Steam, enter **Alpha 3 Upper**, and
    leave a match or training session running.
@@ -82,6 +83,12 @@ The build script fetches a pinned revision of libdatachannel and its submodules.
 You can build the frontend without game resources; these are only needed during
 local import. `dist/` contains only the launcher, host, notices, and licenses.
 To build the host alone, run `python tools/build.py --core-only`.
+
+To create the Windows installer, install Inno Setup 6 from its official site,
+then run `python tools/build_installer.py --compiler "PATH\TO\ISCC.exe"`.
+The installer is written to `build/installer/`. It includes only the audited
+public launcher, host, documentation, and licenses. Uninstalling removes the
+program but preserves imported resources and settings in the separate local cache.
 
 ## Server and contributions
 

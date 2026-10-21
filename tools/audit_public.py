@@ -4,7 +4,7 @@ import hashlib,json,re,sys
 ROOT=Path(__file__).resolve().parents[1]
 TOP={'.gitignore','README.md','LICENSE','THIRD-PARTY-NOTICES.md'}
 FOLDERS={'src','tools','launcher','tests','docs','assets','server','.github'}
-SUFFIXES={'.c','.h','.py','.js','.md','.txt','.json','.jsonc','.yml','.yaml','.svg','.ico'}
+SUFFIXES={'.c','.h','.py','.js','.iss','.md','.txt','.json','.jsonc','.yml','.yaml','.svg','.ico'}
 DENY={'.bin','.afs','.arc','.sngw','.wav','.ogg','.rom','.bmp','.dmp','.log','.csv','.zip','.exe','.dll','.a','.o','.pem','.key'}
 SECRET=re.compile(rb'(?:github_pat_[A-Za-z0-9_]{20,}|gh[pousr]_[A-Za-z0-9]{25,}|-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----)')
 def source_files():
