@@ -1,0 +1,9 @@
+{
+  "name": "alpha3-upper-netplay",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-10-20",
+  "durable_objects": { "bindings": [{ "name": "ROOMS", "class_name": "UpperRoom" }, {"name":"LOBBY","class_name":"UpperLobby"}] },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["UpperRoom"] }, {"tag":"v2","new_sqlite_classes":["UpperLobby"]}],
+  "ratelimits": [{ "name": "CREATE_LIMITER", "namespace_id": "3312048030", "simple": { "limit": 6, "period": 60 } }, {"name":"LOBBY_LIMITER","namespace_id":"3312048031","simple":{"limit":12,"period":60}}],
+  "observability": { "enabled": false }
+}

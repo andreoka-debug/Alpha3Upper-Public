@@ -1,0 +1,42 @@
+name: Public Windows build (no game data)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Importer boundary tests and source audit
+        run: |
+          python -m unittest discover -s tests -v
+          python tools/audit_public.py
+      - uses: msys2/setup-msys2@v2
+        id: msys2
+        with:
+          msystem: UCRT64
+          update: true
+          install: >-
+            mingw-w64-ucrt-x86_64-gcc
+            mingw-w64-ucrt-x86_64-cmake
+            mingw-w64-ucrt-x86_64-ninja
+            mingw-w64-ucrt-x86_64-openssl
+      - name: Build standalone launcher and host
+        env:
+          MINGW_BIN: '${{ steps.msys2.outputs.msys2-location }}\ucrt64\bin'
+        run: |
+          python -m pip install pyinstaller==6.22.3
+          python tools/build.py
+          python tools/audit_public.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Alpha3Upper-Public-Windows-x64
+          path: dist/
+          if-no-files-found: error
